@@ -1,0 +1,40 @@
+ai-sdk/
+│
+├── ai_sdk/
+│   ├── __init__.py                # Inicializa el SDK y los módulos principales
+│   ├── core.py                    # Lógica principal del SDK
+│   ├── providers/
+│   │   ├── __init__.py            # Carga de todos los proveedores
+│   │   ├── gpt.py                 # Soporte para OpenAI GPT
+│   │   ├── llama.py               # Soporte para Meta LLaMA
+│   │   ├── claude.py              # Soporte para Anthropic Claude
+│   │   └── other_provider.py      # Soporte para otros modelos
+│   └── utils/
+│       ├── config.py              # Configuración de claves API y parámetros
+│       ├── helpers.py             # Funciones auxiliares para manejo de respuestas
+│       └── streaming.py           # Manejo de respuestas por streaming
+│
+├── examples/
+│   ├── chat_example.py            # Ejemplo de implementación de un chatbot
+│   └── completion_example.py      # Ejemplo de generación de texto
+│
+├── tests/
+│   ├── test_gpt.py                # Test para integración con GPT
+│   ├── test_llama.py              # Test para LLaMA
+│   └── test_claude.py             # Test para Claude
+│
+├── setup.py                       # Configuración de instalación del SDK
+├── README.md                      # Documentación
+
+
+1. core.py:  Este archivo contiene la lógica principal del SDK, donde podrías definir la interfaz común para interactuar con diferentes proveedores
+2. providers/: Esta carpeta contiene las implementaciones específicas para cada proveedor de modelos de IA.
+    gpt.py: conexión y la lógica de OpenAI GPT.
+    llama.py: conexión con Meta LLaMA usando su API o alguna otra biblioteca.
+3. utils/: Funciones auxiliares para mejorar la organización del código.
+    config.py: Configuración de claves API y parámetros.
+    helpers.py: Funciones auxiliares para manejo de respuestas.
+    streaming.py: Manejo de respuestas por streaming.
+4. examples/: Ejemplos de uso del SDK para que los desarrolladores vean cómo implementarlo fácilmente.
+5. tests/: Pruebas unitarias para asegurar que cada proveedor y funcionalidad del SDK funciona correctamente.
+6. setup.py: Para preparar el SDK como un paquete que otros puedan instalar.
