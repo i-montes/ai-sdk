@@ -1,5 +1,6 @@
-from typing import List, Union, Optional, Dict
-
+from typing import List, Union, Optional, Dict, Sequence, Literal, Mapping, AnyStr
+from ._types import OptionsOllama
+import ollama
 class OllamaProvider:
     def __init__(self, model: str, system: str, headers: Optional[Dict[str, str]] = None):
         """
@@ -11,10 +12,8 @@ class OllamaProvider:
             headers (Optional[Dict[str, str]]): Opcional. Encabezados HTTP adicionales para las solicitudes API.
         """
         self.model = model
-        self.system = system
-        self.headers = headers or {}
-
-    def generate_text(self, prompt: str, messages: List[Dict[str, Union[str, List[Dict[str, Union[str, bytes]]]]]], max_tokens: Optional[int] = 100, temperature: Optional[float] = 0.7, top_p: Optional[float] = 1.0, top_k: Optional[int] = None, max_retries: Optional[int] = 3) -> str:
+       
+    def generate_text(self, system: Optional[str], prompt: str, headers: Optional[Dict[str, str]],  max_tokens: Optional[int] = 100, temperature: Optional[float] = 0.7, top_p: Optional[float] = 1.0, top_k: Optional[int] = None, max_retries: Optional[int] = 3) -> str:
         """
         Genera texto utilizando el modelo AI especificado. Envía un prompt y mensajes previos al modelo y devuelve el resultado generado.
 
@@ -37,15 +36,12 @@ class OllamaProvider:
         """
         if not prompt:
             raise ValueError("El argumento 'prompt' no puede estar vacío.")
-        
-        if not messages:
-            raise ValueError("La lista de 'messages' no puede estar vacía.")
-
+       
         attempt = 0
         while attempt < (max_retries or 3):
             try:
                 # Simulación de la llamada a un API para generar el texto
-                response = self._send_request(prompt, messages, max_tokens, temperature, top_p, top_k)
+                response = self._send_request(system=system, prompt=prompt, headers=headers)
 
                 # Aquí se puede analizar y manejar la respuesta en caso de errores específicos
                 if "error" in response:
@@ -60,7 +56,19 @@ class OllamaProvider:
             except Exception as e:
                 raise Exception(f"Ocurrió un error inesperado: {e}")
         
-    def _send_request(self, prompt: str, messages: List[Dict[str, Union[str, List[Dict[str, Union[str, bytes]]]]]], max_tokens: int, temperature: float, top_p: float, top_k: Optional[int]) -> Dict[str, Union[str, Dict]]:
+    def _send_request(self, 
+            system: str = '',
+            prompt: str = '',
+            suffix: str = '',
+            template: str = '',
+            context: Sequence[int] | None = None,
+            stream: Literal[False] = False,
+            raw: bool = False,
+            format: Literal['', 'json'] = '',
+            images: Sequence[str] | None = None,
+            options: OptionsOllama | None = None,
+            keep_alive: float | str | None = None
+        ) -> Mapping[str, AnyStr]:
         """
         Simula el envío de una solicitud a la API de un modelo de lenguaje para generar texto.
 
@@ -76,6 +84,4 @@ class OllamaProvider:
             Dict[str, Union[str, Dict]]: Simulación de una respuesta de la API que contiene el texto generado.
         """
         # Aquí iría el código real para interactuar con el API.
-        return {
-            "generated_text": "Texto generado basado en el prompt y mensajes anteriores."
-        }
+        return ollama.generate()
