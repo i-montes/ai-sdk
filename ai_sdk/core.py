@@ -2,8 +2,18 @@ class AIModel:
     def __init__(self, provider):
         self.provider = provider
     
-    def generate_text(self, prompt, **kwargs):
-        return self.provider.generate_text(prompt, **kwargs)
-
-    def stream_response(self, prompt, **kwargs):
-        return self.provider.stream_response(prompt, **kwargs)
+    def use_text(self, prompt, **kwargs):
+        return True #self.provider.generate_text(prompt, **kwargs)
+    
+    # def use_object(self, prompt, **kwargs):
+    #     return True #self.provider.generate_text(prompt, **kwargs)
+    
+    # def use_assistant(self, prompt, **kwargs):
+    #     return True #self.provider.use-assistant(prompt, **kwargs)
+    
+    
+    # def use_completion(self, prompt, **kwargs):
+    #     return True #self.provider.use_completion(prompt, **kwargs)
+    
+    # def use_chat(self, prompt, **kwargs):
+    #     return True #self.provider.use_chat(prompt, **kwargs)
