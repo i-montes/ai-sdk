@@ -1,3 +1,7 @@
-from ai_sdk.providers import ollama
+from ai_sdk.providers import OllamaProvider
 
-provider = ollama()
+ollama = OllamaProvider("llama3.1")
+
+res = ollama.generate_text("¿Qué es el clima?")
+
+print(res)

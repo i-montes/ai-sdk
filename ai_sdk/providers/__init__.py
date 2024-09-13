@@ -1,3 +1,3 @@
-from .ollama.core import OllamaProvider as ollama
+from .ollama.core import OllamaProvider 
 
-__all__ = ["ollama"]
+__all__ = ["OllamaProvider"]

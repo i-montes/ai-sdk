@@ -59,3 +59,22 @@ class OptionsOllama(TypedDict, total=False):
     mirostat_eta: float
     penalize_newline: bool
     stop: Sequence[str]
+
+
+
+
+### define types for response ollama
+
+class ResponseDataType(TypedDict):
+    model: str
+    created_at: str
+    response: str
+    done: bool
+    done_reason: str
+    context: List[int]
+    total_duration: int
+    load_duration: int
+    prompt_eval_count: int
+    prompt_eval_duration: int
+    eval_count: int
+    eval_duration: int
